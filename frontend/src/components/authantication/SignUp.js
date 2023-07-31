@@ -49,7 +49,7 @@ const SignUp = () => {
   
       const data = await response.json()
     if(data){
-      localStorage.setItem('user',JSON.stringify(data))
+      localStorage.setItem('email',JSON.stringify(data.email))
       navigate('/')
     }
     } catch (error) {
