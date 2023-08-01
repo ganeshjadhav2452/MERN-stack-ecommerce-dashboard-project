@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleIsChange } from "../../../reduxStore/slices/ProductSlice";
+import { Link } from "react-router-dom";
+import { updateProductInSlice } from "../../../reduxStore/slices/ProductSlice";
 const ProductCard = ({ product }) => {
     const [isDeleteClicked ,setDeleteClick] = useState(false)
-    const [deleted, setIsDeleted] = useState(false)
+   
     const dispatch= useDispatch()
   useEffect(() => {
     const deleteclickHandler=async()=>{
@@ -42,8 +44,13 @@ const ProductCard = ({ product }) => {
         <h6 className="card-subtitle mb-2 text-muted">
           Price: ${product.price}
         </h6>
-
-        <button className="btn btn-danger" onClick={()=>setDeleteClick(true)}>Remove</button>
+        <div className="d-flex flex-row justify-content-between" style={{marginLeft:'-0.7rem'}}>
+        <button className="btn btn-danger  m-1" onClick={()=>setDeleteClick(true)}>Remove</button>
+        <Link onClick={()=>{
+          dispatch(updateProductInSlice(product))
+        }} className="btn btn-warning m-1" to={`/update/${product._id}`}>Update</Link>
+        </div>
+        
       </div>
     </div>
   );

@@ -79,6 +79,42 @@ app.delete('/:id', async (request, response) => {
 
 })
 
+app.put('/update/:_id', async (request, response) => {
+    console.log(request.params._id)
+   try {
+    const data = await Product.updateOne({ _id: request.params._id }, {
+        $set: {
+            name: request.body.name,
+            price: request.body.price,
+            company: request.body.company,
+            category: request.body.category
+        }
+    })
+    response.send(data)
+   } catch (error) {
+    response.send({error:error})
+   }
+})
+
+app.get('/search/:key',async(request,response)=>{
+
+    try {
+        const searchedData = await Product.find({
+            "$or":[
+                {name:{$regex:request.params.key}},
+                {company:{$regex:request.params.key}},
+                {category:{$regex:request.params.key}},
+            ]
+        })
+     
+      
+            response.send(searchedData)
+      
+    } catch (error) {
+        
+    }
+
+})
 
 
 

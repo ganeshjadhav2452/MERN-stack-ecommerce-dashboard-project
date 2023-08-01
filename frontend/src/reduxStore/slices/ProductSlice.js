@@ -4,15 +4,19 @@ const ProductSlice = createSlice({
     name:'product',
     initialState:{
         isChanged:false,
+        currentProduct:{}
     },
     reducers:{
         toggleIsChange(state){
             state.isChanged = !state.isChanged
+        },
+        updateProductInSlice(state,action){
+            state.currentProduct = action.payload
         }
 
     }
 })
 
-export const {toggleIsChange} = ProductSlice.actions;
+export const {toggleIsChange, updateProductInSlice} = ProductSlice.actions;
 
 export default ProductSlice.reducer
